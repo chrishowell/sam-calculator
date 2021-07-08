@@ -5,7 +5,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 
-    <title>Calculator</title>
+    <title>Oxford Platelets in Pregnancy Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chibi/3.0.9/chibi-min.js"></script>
@@ -25,14 +25,15 @@
             let gestational_age_weeks = parseInt($("#input_gestational_age_weeks").val()) + (parseInt($("#input_gestational_age_days").val()) / 7);
             let platelet_result = parseInt($("#input_platelet_result").val());
 
-            let mean_platelets = 15.92551 + (16.45705 / Math.pow(gestational_age_weeks, 2)) + (-0.0000145 * Math.pow(gestational_age_weeks, 3))
+            let mean_platelets = 6.037936 + (0.821478 / Math.pow(gestational_age_weeks, 2)) + (-0.0000011 * Math.pow(gestational_age_weeks, 3))
 
-            let sd_platelets = 1.967772 + (-0.0329754 * gestational_age_weeks) + (0.0009768 * Math.pow(gestational_age_weeks, 2))
+            let sd_platelets = 0.110624 + (0.0010528 * gestational_age_weeks)
 
-            let z_score = (Math.sqrt(platelet_result) - mean_platelets) / sd_platelets;
+            // let z_score = (Math.sqrt(platelet_result) - mean_platelets) / sd_platelets;
+            let z_score = (Math.log(platelet_result + 165.3413) - mean_platelets) / sd_platelets
 
             let percentile = cdf(z_score) * 100;
-            let rounded_percentile = Math.round((percentile + Number.EPSILON) * 100) / 100
+            let rounded_percentile = Math.round(percentile * 10) / 10
 
             let recommended_action;
             let level_of_risk;
@@ -41,7 +42,7 @@
                 $("#low_risk_recommendation").hide();
                 $("#medium_risk_recommendation").hide();
                 $("#high_risk_recommendation").show();
-            } else if (percentile >= 2.5) {
+            } else if (percentile >= 3) {
                 level_of_risk = "LOW";
                 $("#low_risk_recommendation").show();
                 $("#medium_risk_recommendation").hide();
@@ -225,7 +226,7 @@
 
 <body>
     <header class="header">
-        <h1>Ox-PPP (Oxford Pregnancy Parameters Project)</h1>
+        <h1>Oxford Platelets in Pregnancy</h1>
     </header>
     <div class="outer-container">
         <div class="inner-container inner-l-container">
@@ -236,8 +237,8 @@
                             <fieldset>
                                 <legend>Time since conception</legend>
                                 <label for="input_gestational_age_weeks">Weeks</label>
-                                <input id="input_gestational_age_weeks" autofocus required type="number" min="6"
-                                    max="42" />
+                                <input id="input_gestational_age_weeks" autofocus required type="number" min="10"
+                                    max="41" />
                                 <label for="input_gestational_age_days">Days</label>
                                 <input id="input_gestational_age_days" required type="number" min="0" max="6"
                                     value="0" />
@@ -265,14 +266,7 @@
                             thrombocytopaenia at term (&lt;100 x109/L).
                         </p>
                         <p>
-                            We recommend <span id="high_risk_recommendation">further investigation and/or referral to
-                                specialist
-                                services</span><span id="medium_risk_recommendation">considering further investigation
-                                and/or
-                                referral
-                                to specialist services</span><span id="low_risk_recommendation">continuing routine
-                                antenatal
-                                monitoring</span>.
+                            We recommend <span id="high_risk_recommendation">further investigation and/or referral to specialist services</span><span id="medium_risk_recommendation">considering further investigation and/or referral to specialist services</span><span id="low_risk_recommendation">continuing routine antenatal monitoring</span>.
                         </p>
                     </section>
                 </section>
@@ -281,7 +275,7 @@
         <div class="inner-container inner-r-container">
             <section>
                 <p>
-                    The Ox-PPP calculator provides free, gestational age-adjusted centile for platelets from 6 weeks of
+                    The Oxford Platelets in Pregnancy calculator provides free, gestational age-adjusted centile for platelets from 10 weeks of
                     gestation onwards, which may be used to identify women who have, or are at risk of developing
                     thrombocytopaenia at term.
                 </p>
@@ -292,7 +286,7 @@
                     thrombocytopaenia in pregnancy.
                 </p>
                 <p>
-                    Please cite the following paper in any publications that may result from using Ox-PPP: [citation
+                    Please cite the following paper in any publications that may result from using Oxford Platelets in Pregnancy: [citation
                     TBC]
                 </p>
             </section>
