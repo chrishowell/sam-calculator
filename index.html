@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -7,7 +7,7 @@
 
     <title>Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta charset="UTF-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chibi/3.0.9/chibi-min.js"></script>
 
     <script>
@@ -70,9 +70,13 @@
         });
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
         * {
             box-sizing: border-box;
-            font-family: 'Noto Sans JP', sans-serif;
+            font-family: 'Noto Sans', sans-serif;
+            color: #1d3850;
+            border-color: #1d3850;
         }
 
         h1 {
@@ -81,18 +85,33 @@
 
         body {
             line-height: 1.5;
+            margin: 0 0 100px 0;
+            clear: both;
         }
 
         header {
             text-align: center;
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 5px solid #1d3850;
+        }
+
+        header>h1 {
+            margin: 0;
+        }
+
+        p {
+            margin-top: 0;
         }
 
         .outer-container {
             max-width: 1280px;
+            margin-top: 10px;
             margin-right: auto;
             margin-left: auto;
             display: flex;
             flex-wrap: wrap;
+            margin-bottom: -50px;
         }
 
         .inner-container {
@@ -100,15 +119,13 @@
             padding-right: 16px;
         }
 
-
         .inner-l-container {
-            width: 35%;
+            width: 40%;
         }
 
         .inner-r-container {
-            width: 65%;
+            width: 60%;
         }
-
 
         @media only screen and (max-width:620px) {
 
@@ -118,15 +135,24 @@
                 width: 100%;
             }
 
+            .inner-r-container {
+                margin-top: 10px;
+            }
+
             header {
                 font-size: 0.5em;
+            }
+
+            footer {
+                font-size: 0.7em;
             }
         }
 
         #calculator {
             border: 1px solid black;
             padding: 0px 20px 10px 20px;
-            margin-top: 10px;
+            margin-top: 7px;
+            padding-top: 10px;
         }
 
         /* 
@@ -163,9 +189,30 @@
             border: 1px solid #333;
         }
 
+        button {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
         p>label {
             width: 100%;
             display: block;
+        }
+
+        hr {
+            border: 0;
+            border-top: 2px solid black;
+            /* border-top: 1px solid #eeeeee; */
+            box-sizing: content-box;
+            margin-top: 0;
+        }
+
+        footer {
+            background-color: white;
+            position: fixed;
+            bottom: 0;
+            
+            padding: 0 10px 10px 10px;
         }
 
         input::-webkit-outer-spin-button,
@@ -173,7 +220,6 @@
             -webkit-appearance: none;
             margin: 0;
         }
-        
     </style>
 </head>
 
@@ -187,23 +233,19 @@
                 <section id="data">
                     <form id="data_input">
                         <section>
-                            <p>
                             <fieldset>
                                 <legend>Time since conception</legend>
                                 <label for="input_gestational_age_weeks">Weeks</label>
                                 <input id="input_gestational_age_weeks" autofocus required type="number" min="6"
-                                    max="42" pattern="\d+" />
+                                    max="42" />
                                 <label for="input_gestational_age_days">Days</label>
-                                <input id="input_gestational_age_days" required type="number" min="0" max="6" value="0"
-                                    pattern="\d+" />
+                                <input id="input_gestational_age_days" required type="number" min="0" max="6"
+                                    value="0" />
                             </fieldset>
-                            </p>
-                            <p>
                             <fieldset>
                                 <legend>Platelet result</legend>
-                                <input id="input_platelet_result" required type="number" min="1" pattern="\d+" />
+                                <input id="input_platelet_result" required type="number" min="1" />
                             </fieldset>
-                            </p>
                         </section>
                         <section>
                             <p>
@@ -243,10 +285,6 @@
                     gestation onwards, which may be used to identify women who have, or are at risk of developing
                     thrombocytopaenia at term.
                 </p>
-                <p>
-                    The results and recommendations are derived from the study by Dockree, at al. (2021) [link TBC] and
-                    should only be used alongside local and national guidance.
-                </p>
             </section>
             <section>
                 <p>
@@ -259,7 +297,12 @@
                 </p>
             </section>
         </div>
+        <footer>
+            <hr />
+            Disclaimer: The results and recommendations are derived from the study by Dockree, at al. (2021) [link TBC] and should only be used alongside local and national guidance.
+        </footer>
     </div>
+    
 </body>
 
 </html>
